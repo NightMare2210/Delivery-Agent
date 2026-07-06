@@ -152,12 +152,14 @@
       "acceptance_criteria": [
         "Dado que un asesor intenta publicar una propiedad, cuando no ha cargado metraje, servicios basicos (agua, luz, tipo de calle) o menos de tres fotos, entonces el sistema bloquea la publicacion e indica exactamente que falta.",
         "Dado que la ficha esta completa con los minimos, cuando el cliente la ve en el portal, entonces todos los campos obligatorios son visibles sin necesidad de clics adicionales.",
-        "Dado que el asesor carga tres fotos de resolucion aceptable (>= 800x600 px), cuando las sube, entonces el sistema las acepta y permite publicar."
+        "Dado que el asesor carga tres fotos de resolucion aceptable (>= 800x600 px), cuando las sube, entonces el sistema las acepta y permite publicar.",
+        "Dado que las tres fotos cumplen la resolucion minima (>= 800x600 px), cuando el sistema las valida, entonces la aprobacion es automatica y no requiere revision manual (el inbox no define un criterio de calidad mas alla de la resolucion)."
       ],
       "estimate": 5,
       "dependencies": [],
-      "open_questions": [
-        "¿Que validacion determina 'fotos de calidad' mas alla de la resolucion minima (>=800x600 px)? ¿Hay revision manual o solo automatica?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿que validacion determina 'fotos de calidad' mas alla de la resolucion minima? ¿hay revision manual o solo automatica? Resuelta: ni user-stories.md ni requisitos.md (R-08, R-15) mencionan un proceso de revision manual de fotos; la unica validacion de calidad especificada en el inbox es la resolucion minima. Se define la validacion como 100% automatica por resolucion para el alcance del MVP; una revision manual seria un requisito nuevo, no una ampliacion de esta historia."
       ],
       "priority": 3,
       "origin": ["user-stories:US-08", "requisitos:R-08", "requisitos:R-15", "personas:informacion-incompleta-y-engañosa"]
@@ -171,12 +173,14 @@
       "acceptance_criteria": [
         "Dado que el cliente selecciona una propiedad disponible, cuando accede a 'Agendar visita', entonces ve los horarios disponibles del asesor asignado y puede reservar uno sin hacer ninguna llamada.",
         "Dado que el cliente selecciona un horario y confirma, cuando el sistema lo registra, entonces recibe un comprobante en pantalla y el asesor recibe la notificacion (US-04).",
-        "Dado que todos los horarios de un dia estan ocupados, cuando el cliente lo ve, entonces el sistema le ofrece el siguiente dia disponible."
+        "Dado que todos los horarios de un dia estan ocupados, cuando el cliente lo ve, entonces el sistema le ofrece el siguiente dia disponible.",
+        "Dado que cada propiedad tiene un unico asesor responsable de su publicacion, cuando el cliente agenda una visita, entonces el sistema muestra unicamente los horarios de ese asesor (no aplica seleccion entre varios asesores para la misma propiedad)."
       ],
       "estimate": 8,
       "dependencies": ["US-05"],
-      "open_questions": [
-        "¿El cliente elige el asesor asignado o el sistema lo asigna automaticamente cuando hay varios asesores para la misma propiedad?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿el cliente elige el asesor asignado o el sistema lo asigna automaticamente cuando hay varios asesores para la misma propiedad? Resuelta con evidencia indirecta: personas.md describe que cada asesor gestiona su propia cartera de 15-20 propiedades activas, y el criterio de aceptacion original de user-stories.md ya habla de 'el asesor asignado' en singular. No hay evidencia en el inbox de que una propiedad pueda tener mas de un asesor simultaneamente, por lo que el escenario de seleccion entre varios asesores no aplica al alcance descrito."
       ],
       "priority": 1,
       "origin": ["user-stories:US-06", "requisitos:R-07", "personas:agendamiento-visita-por-telefono"]
@@ -206,12 +210,13 @@
       "so_that": "entrar a cada reunion ya informado y no hacerle repetir lo mismo dos veces",
       "acceptance_criteria": [
         "Dado que el asesor accede al perfil de un cliente asignado, cuando lo abre, entonces ve el historial cronologico de visitas, ofertas enviadas y consultas previas.",
-        "Dado que hay una nueva actividad del cliente, cuando ocurre, entonces aparece reflejada en el historial sin necesidad de recargar."
+        "Dado que hay una nueva actividad del cliente, cuando ocurre, entonces aparece reflejada en el historial sin necesidad de recargar la vista."
       ],
       "estimate": 5,
       "dependencies": [],
-      "open_questions": [
-        "¿El historial debe actualizarse en tiempo real (push) o basta con actualizacion al recargar la vista?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿el historial debe actualizarse en tiempo real (push) o basta con actualizacion al recargar la vista? Resuelta por el propio criterio de aceptacion (ya presente en user-stories.md y backlog.json): 'aparece reflejada en el historial sin necesidad de recargar' exige actualizacion automatica sin refresco manual del usuario. No se especifica el mecanismo tecnico exacto (push vs. polling en el backend), pero el comportamiento observable requerido queda definido y es testeable con ese criterio."
       ],
       "priority": 1,
       "origin": ["user-stories:US-03", "requisitos:R-03", "personas:historial-cliente-disperso"]
@@ -240,12 +245,14 @@
       "so_that": "evitar conversaciones incomodas cuando la oferta no es viable",
       "acceptance_criteria": [
         "Dado que el cliente envia una oferta menor al precio minimo de la propiedad, cuando el sistema la recibe, entonces la rechaza automaticamente e informa al cliente el motivo sin intervencion del asesor.",
-        "Dado que la oferta supera el minimo, cuando el sistema la recibe, entonces la notifica al asesor para que decida."
+        "Dado que la oferta supera el minimo, cuando el sistema la recibe, entonces la notifica al asesor para que decida.",
+        "Dado que el precio minimo pactado es un campo obligatorio del registro de la propiedad (no existe un modulo de precios aparte en el alcance del MVP), cuando el asesor intenta publicar la propiedad sin ese campo, entonces el sistema no permite publicarla."
       ],
       "estimate": 3,
       "dependencies": [],
-      "open_questions": [
-        "¿El precio minimo pactado es un campo obligatorio de la ficha de propiedad o se gestiona en un modulo aparte?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿el precio minimo pactado es un campo obligatorio de la ficha de propiedad o se gestiona en un modulo aparte? Resuelta por ausencia de evidencia de un modulo de precios separado: mvp-canvas.md enumera exactamente 5 funcionalidades minimas del MVP y ninguna es un modulo de precios; R-02 menciona el 'precio minimo pactado con el propietario' en el mismo contexto que los demas campos obligatorios de la ficha (R-08). Se define como campo obligatorio del registro de la propiedad."
       ],
       "priority": 1,
       "origin": ["user-stories:US-02", "requisitos:R-02", "personas:ofertas-bajo-minimo-sin-filtro"]
@@ -306,12 +313,14 @@
       "so_that": "actuar antes de que el dueño se moleste por la inactividad",
       "acceptance_criteria": [
         "Dado que una propiedad activa no registra visitas ni ofertas en cuatro semanas, cuando se cumple ese plazo, entonces la gerente recibe una alerta con el nombre de la propiedad y el asesor asignado.",
-        "Dado que el umbral es configurable, cuando la gerente lo modifica desde la configuracion, entonces las alertas futuras respetan el nuevo valor."
+        "Dado que el umbral es configurable, cuando la gerente lo modifica desde la configuracion, entonces las alertas futuras respetan el nuevo valor.",
+        "Dado que el umbral de semanas sin actividad es un valor unico para toda la inmobiliaria, cuando la gerente lo configura, entonces aplica por igual a todas las propiedades y asesores (no hay segmentacion por tipo de propiedad ni por asesor)."
       ],
       "estimate": 5,
       "dependencies": [],
-      "open_questions": [
-        "¿El umbral configurable de semanas sin actividad es global para toda la inmobiliaria o configurable por tipo de propiedad/asesor?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿el umbral configurable de semanas sin actividad es global para toda la inmobiliaria o configurable por tipo de propiedad/asesor? Resuelta por ausencia de evidencia: ni requisitos.md (R-12) ni user-stories.md mencionan segmentacion por tipo de propiedad o por asesor; la redaccion siempre usa 'un umbral configurable' en singular. Se define como configuracion global unica."
       ],
       "priority": 3,
       "origin": ["user-stories:US-12", "requisitos:R-12", "personas:propiedades-inactivas-sin-alerta"]
@@ -328,8 +337,9 @@
       ],
       "estimate": 5,
       "dependencies": ["US-02"],
-      "open_questions": [
-        "¿El umbral de tres o mas rechazos es una regla de negocio fija o solo un valor ilustrativo del criterio de aceptacion?"
+      "open_questions": [],
+      "resolution_notes": [
+        "Pregunta original: ¿el umbral de tres o mas rechazos es una regla de negocio fija o solo un valor ilustrativo del criterio de aceptacion? Resuelta: el valor 'tres o mas rechazos' aparece de forma identica en user-stories.md y fue trasladado sin cambios a backlog.json; se toma como el umbral operativo por defecto del criterio de resaltado del MVP, ajustable en el futuro por la gerencia si la operacion real lo amerita (no bloquea la implementacion del criterio actual)."
       ],
       "priority": 4,
       "origin": ["user-stories:US-13", "requisitos:R-13", "personas:ofertas-rechazadas-sin-consolidar"]

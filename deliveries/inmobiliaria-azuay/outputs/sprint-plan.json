@@ -1,0 +1,5 @@
+{
+  "sprint_goal": "El cliente ve el estado real de las propiedades y agenda su visita 100% desde el portal, sin depender del teléfono",
+  "capacity": 20,
+  "stories": ["US-05", "US-07", "US-06", "US-01"]
+}
