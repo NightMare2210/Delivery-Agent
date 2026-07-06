@@ -88,4 +88,4 @@ El reporte HTML final se genera en `deliveries/mi-producto/outputs/report.html`.
 
 ## Ejemplo incluido
 
-El delivery `citasalud` contiene un ejemplo completo con inbox y outputs generados, útil como referencia del formato esperado en cada artefacto.
+El delivery `inmobiliaria-azuay` contiene un ejemplo completo con inbox y outputs generados, útil como referencia del formato esperado en cada artefacto.
