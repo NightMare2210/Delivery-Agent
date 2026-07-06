@@ -1,5 +1,8 @@
 # Demo del gate `dor-invest-gate.py` — delivery `inmobiliaria-azuay`
 
+Captura: [`gate-demo-screenshot.png`](./gate-demo-screenshot.png) · mockup fuente: [`gate-demo.html`](./gate-demo.html)
+(mismo formato usado en la Unidad 1 para el `readiness-gate` del Discovery Agent).
+
 ## Qué se hizo
 
 Se coló deliberadamente una historia floja en `backlog.json` (`US-99`, ficticia,

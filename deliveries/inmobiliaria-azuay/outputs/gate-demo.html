@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>gate demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #2B2B2B;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  .label {
+    color: #888;
+    font-size: 11px;
+    margin-bottom: 8px;
+    margin-top: 24px;
+    letter-spacing: .05em;
+  }
+  .label:first-child { margin-top: 0; }
+  .window {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    margin-bottom: 6px;
+  }
+  .titlebar {
+    background: #3C3C3C;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FFBD2E; }
+  .dot.g { background: #28C840; }
+  .titlebar span {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #9A9A9A;
+    margin-right: 37px;
+  }
+  .body {
+    background: #1E1E1E;
+    padding: 16px 18px 20px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #D4D4D4;
+    white-space: pre-wrap;
+  }
+  .prompt { color: #4EC9B0; }
+  .cmd    { color: #D4D4D4; }
+  .arg    { color: #CE9178; }
+  .border { color: #555; }
+  .err    { color: #F44747; }
+  .warn   { color: #CE9178; }
+  .ok     { color: #4EC994; }
+  .dim    { color: #666; }
+  .blank  { display: block; height: 6px; }
+</style>
+</head>
+<body>
+
+<div class="label">— bloqueo: backlog.json con la historia US-99 floja (sin criterios, sin estimación, dependencia inexistente, pregunta abierta, término vago)</div>
+<div class="window">
+  <div class="titlebar">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    <span>zsh — Unidad-2-Practica</span>
+  </div>
+  <div class="body">
+<span class="prompt">brando@MacBook Unidad-2-Practica %</span> <span class="cmd">echo</span> <span class="arg">'{"tool_input":{"file_path":"deliveries/inmobiliaria-azuay/outputs/stories.md"},"cwd":"/Users/brando/.../Unidad-2-Practica"}'</span> <span class="dim">\</span>
+  <span class="dim">|</span> <span class="cmd">python3</span> <span class="arg">.claude/hooks/dor-invest-gate.py</span>
+<span class="blank"></span>
+<span class="err">dor-invest-gate: BLOQUEADO — el backlog no está listo para el sprint.</span>
+<span class="blank"></span>
+<span class="err">  ✗ US-99: sin criterios de aceptación (no es testeable).</span>
+<span class="err">  ✗ US-99: sin estimación válida en puntos (no es estimable).</span>
+<span class="err">  ✗ US-99: depende de 'US-77', que no existe en el backlog.</span>
+<span class="err">  ✗ US-99: tiene preguntas abiertas sin resolver (no está 'ready').</span>
+<span class="err">  ✗ US-99: usa un término vago ('un panel moderno y rapido con todo lo importante del negocio') sin criterio medible (no es testeable).</span>
+<span class="blank"></span>
+<span class="warn">Corrige las historias señaladas (no evadas el gate):</span>
+<span class="warn">  · formato Como/Quiero/Para completo</span>
+<span class="warn">  · al menos un criterio de aceptación verificable (testeable)</span>
+<span class="warn">  · una estimación en puntos > 0 (estimable)</span>
+<span class="warn">  · tamaño &lt;= 8 pts; si es mayor, divídela (pequeña)</span>
+<span class="warn">  · sin preguntas abiertas bloqueantes (Definition of Ready)</span>
+<span class="blank"></span>
+<span class="prompt">brando@MacBook Unidad-2-Practica %</span> <span class="cmd">echo</span> <span class="dim">$?</span>
+<span class="err">2</span>
+  </div>
+</div>
+
+<div class="label">— resolución: US-99 corregida (criterio verificable, 3 pts, sin dependencias ni preguntas abiertas) — el gate aprueba</div>
+<div class="window">
+  <div class="titlebar">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    <span>zsh — Unidad-2-Practica</span>
+  </div>
+  <div class="body">
+<span class="prompt">brando@MacBook Unidad-2-Practica %</span> <span class="cmd">echo</span> <span class="arg">'{"tool_input":{"file_path":"deliveries/inmobiliaria-azuay/outputs/stories.md"},"cwd":"/Users/brando/.../Unidad-2-Practica"}'</span> <span class="dim">\</span>
+  <span class="dim">|</span> <span class="cmd">python3</span> <span class="arg">.claude/hooks/dor-invest-gate.py</span>
+<span class="blank"></span>
+<span class="prompt">brando@MacBook Unidad-2-Practica %</span> <span class="cmd">echo</span> <span class="dim">$?</span>
+<span class="ok">0</span>
+  </div>
+</div>
+
+</body>
+</html>
