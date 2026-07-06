@@ -1,0 +1,97 @@
+{
+  "discovery": "inmobiliaria-azuay",
+  "generated": "2026-06-18",
+  "personas": [
+    {
+      "name": "P. (asesor inmobiliario)",
+      "role": "asesor",
+      "primary": true,
+      "source": "asesor-inmobiliario.md",
+      "first_person": true
+    },
+    {
+      "name": "M. (cliente comprador)",
+      "role": "cliente",
+      "primary": true,
+      "source": "cliente-comprador.md",
+      "first_person": true
+    },
+    {
+      "name": "G. (gerente / propietaria)",
+      "role": "gerente",
+      "primary": true,
+      "source": "gerente-propietaria.md",
+      "first_person": true
+    },
+    {
+      "name": "Dueño / Propietario de inmueble",
+      "role": "propietario",
+      "primary": false,
+      "source": null,
+      "first_person": false,
+      "note": "mencionado en asesor-inmobiliario.md y gerente-propietaria.md; sin entrevista propia"
+    }
+  ],
+  "pains": [
+    {
+      "id": "fotos-pendientes-bloquean-publicacion",
+      "source": "asesor-inmobiliario.md",
+      "persona": "asesor inmobiliario"
+    },
+    {
+      "id": "ofertas-bajo-minimo-sin-filtro",
+      "source": "asesor-inmobiliario.md",
+      "persona": "asesor inmobiliario"
+    },
+    {
+      "id": "historial-cliente-disperso",
+      "source": "asesor-inmobiliario.md",
+      "persona": "asesor inmobiliario"
+    },
+    {
+      "id": "notificaciones-visitas-tardias",
+      "source": "asesor-inmobiliario.md",
+      "persona": "asesor inmobiliario"
+    },
+    {
+      "id": "estado-propiedad-no-real-time",
+      "source": "cliente-comprador.md",
+      "persona": "cliente comprador"
+    },
+    {
+      "id": "visita-sin-aviso-de-reserva",
+      "source": "cliente-comprador.md",
+      "persona": "cliente comprador"
+    },
+    {
+      "id": "agendamiento-visita-por-telefono",
+      "source": "cliente-comprador.md",
+      "persona": "cliente comprador"
+    },
+    {
+      "id": "informacion-incompleta-y-engañosa",
+      "source": "cliente-comprador.md",
+      "persona": "cliente comprador"
+    },
+    {
+      "id": "visibilidad-rendimiento-asesores",
+      "source": "gerente-propietaria.md",
+      "persona": "gerente / propietaria"
+    },
+    {
+      "id": "asignacion-clientes-sin-vista-de-carga",
+      "source": "gerente-propietaria.md",
+      "persona": "gerente / propietaria"
+    },
+    {
+      "id": "propiedades-inactivas-sin-alerta",
+      "source": "gerente-propietaria.md",
+      "persona": "gerente / propietaria"
+    },
+    {
+      "id": "ofertas-rechazadas-sin-consolidar",
+      "source": "gerente-propietaria.md",
+      "persona": "gerente / propietaria"
+    }
+  ]
+}

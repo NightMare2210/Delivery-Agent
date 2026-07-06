@@ -1,0 +1,338 @@
+{
+  "epics": [
+    {
+      "id": "E-01",
+      "title": "Menos visitas en vano por informacion confiable y en tiempo real",
+      "value": "El cliente deja de perder tiempo visitando propiedades que ya no estan disponibles o que no cumplen la informacion minima que necesita para decidir; aumenta su confianza en el portal.",
+      "priority": 1,
+      "origin": [
+        "mvp-canvas:estado-en-tiempo-real",
+        "mvp-canvas:ficha-minimos-obligatorios",
+        "mvp-canvas:notificacion-proactiva-cliente",
+        "requisitos:R-05",
+        "requisitos:R-06",
+        "requisitos:R-08",
+        "requisitos:R-14",
+        "requisitos:R-15",
+        "personas:estado-propiedad-no-real-time",
+        "personas:visita-sin-aviso-de-reserva",
+        "personas:informacion-incompleta-y-engañosa"
+      ]
+    },
+    {
+      "id": "E-02",
+      "title": "Agendamiento sin depender del telefono",
+      "value": "El cliente reserva su visita 100% desde el portal sin llamar ni esperar un callback, atacando directamente el cuello de botella telefonico.",
+      "priority": 2,
+      "origin": [
+        "mvp-canvas:agendamiento-online",
+        "requisitos:R-07",
+        "personas:agendamiento-visita-por-telefono"
+      ]
+    },
+    {
+      "id": "E-03",
+      "title": "El asesor llega preparado y a tiempo a cada visita",
+      "value": "El asesor se entera al instante de cada confirmacion o cancelacion de visita y llega preparado, cerrando el circuito entre el cliente autogestionado y el asesor en terreno.",
+      "priority": 3,
+      "origin": [
+        "mvp-canvas:notificacion-push-asesor",
+        "requisitos:R-04",
+        "personas:notificaciones-visitas-tardias"
+      ]
+    },
+    {
+      "id": "E-04",
+      "title": "Historial unificado del cliente para el asesor",
+      "value": "El asesor entra a cada reunion con el historial completo del cliente (visitas, ofertas, consultas) en un solo lugar, sin pedirle que repita informacion.",
+      "priority": 4,
+      "origin": [
+        "user-stories:US-03",
+        "requisitos:R-03",
+        "personas:historial-cliente-disperso"
+      ]
+    },
+    {
+      "id": "E-05",
+      "title": "Publicacion rapida al recibir las fotos de la propiedad",
+      "value": "El asesor no pierde la oportunidad de publicar una propiedad solo porque el dueño demora en enviar las fotos: se activa con un clic en cuanto llegan las imagenes minimas.",
+      "priority": 5,
+      "origin": [
+        "user-stories:US-01",
+        "requisitos:R-01",
+        "personas:fotos-pendientes-bloquean-publicacion"
+      ]
+    },
+    {
+      "id": "E-06",
+      "title": "Rechazo automatico de ofertas bajo el minimo",
+      "value": "El sistema filtra automaticamente las ofertas por debajo del precio minimo pactado, evitando conversaciones incomodas para el asesor.",
+      "priority": 6,
+      "origin": [
+        "mvp-canvas:fuera-de-alcance:rechazo-ofertas",
+        "user-stories:US-02",
+        "requisitos:R-02",
+        "personas:ofertas-bajo-minimo-sin-filtro"
+      ]
+    },
+    {
+      "id": "E-07",
+      "title": "Alertas proactivas de precio y nuevas propiedades para el cliente",
+      "value": "El cliente recibe alertas de baja de precio o de nuevas propiedades que calzan sus criterios, sin tener que revisar el portal a diario.",
+      "priority": 7,
+      "origin": [
+        "mvp-canvas:fuera-de-alcance:alertas-precio",
+        "user-stories:US-09",
+        "requisitos:R-09"
+      ]
+    },
+    {
+      "id": "E-08",
+      "title": "Visibilidad operativa para la gerencia",
+      "value": "La gerente obtiene visibilidad del rendimiento por asesor, la carga de clientes, las propiedades inactivas y las ofertas rechazadas, para tomar decisiones de gestion y de precio.",
+      "priority": 8,
+      "origin": [
+        "mvp-canvas:fuera-de-alcance:dashboard-gerencial",
+        "user-stories:US-10",
+        "user-stories:US-11",
+        "user-stories:US-12",
+        "user-stories:US-13",
+        "requisitos:R-10",
+        "requisitos:R-11",
+        "requisitos:R-12",
+        "requisitos:R-13",
+        "personas:visibilidad-rendimiento-asesores",
+        "personas:asignacion-clientes-sin-vista-de-carga",
+        "personas:propiedades-inactivas-sin-alerta",
+        "personas:ofertas-rechazadas-sin-consolidar"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "US-05",
+      "epic": "E-01",
+      "as_a": "cliente comprador",
+      "want": "ver en el portal si una propiedad esta disponible, reservada o vendida en tiempo real",
+      "so_that": "no hacer una visita innecesaria a una propiedad que ya no esta libre",
+      "acceptance_criteria": [
+        "Dado que un asesor cambia el estado de una propiedad en el sistema interno, cuando el cliente visualiza la ficha en el portal, entonces el estado actualizado aparece en menos de 60 segundos.",
+        "Dado que la propiedad pasa a 'reservada', cuando el cliente intenta agendar una visita, entonces el sistema lo informa y no permite avanzar.",
+        "Dado que la propiedad esta marcada como 'vendida', cuando el cliente la busca, entonces aparece con ese estado claramente visible y sin opcion de contacto."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["user-stories:US-05", "requisitos:R-05", "requisitos:R-14", "personas:estado-propiedad-no-real-time"]
+    },
+    {
+      "id": "US-07",
+      "epic": "E-01",
+      "as_a": "cliente comprador",
+      "want": "recibir un aviso si el estado de una propiedad cambia despues de que agende una visita",
+      "so_that": "no llegar a una propiedad que ya no esta disponible",
+      "acceptance_criteria": [
+        "Dado que el cliente tiene una visita agendada, cuando la propiedad pasa a 'reservada' o 'vendida', entonces el cliente recibe una notificacion proactiva antes de la fecha de la visita.",
+        "Dado que se envio la notificacion, cuando el cliente la recibe, entonces puede cancelar la visita o contactar al asesor desde la misma notificacion.",
+        "Dado que la reserva se cancela y la propiedad vuelve a estar disponible, cuando eso ocurre, entonces el cliente tambien es notificado."
+      ],
+      "estimate": 3,
+      "dependencies": ["US-06"],
+      "open_questions": [],
+      "priority": 2,
+      "origin": ["user-stories:US-07", "requisitos:R-06", "personas:visita-sin-aviso-de-reserva"]
+    },
+    {
+      "id": "US-08",
+      "epic": "E-01",
+      "as_a": "cliente comprador",
+      "want": "que todas las fichas de propiedades incluyan metraje real, servicios disponibles y al menos tres fotos de calidad",
+      "so_that": "tomar decisiones informadas sin visitar propiedades que no cumplen mis criterios basicos",
+      "acceptance_criteria": [
+        "Dado que un asesor intenta publicar una propiedad, cuando no ha cargado metraje, servicios basicos (agua, luz, tipo de calle) o menos de tres fotos, entonces el sistema bloquea la publicacion e indica exactamente que falta.",
+        "Dado que la ficha esta completa con los minimos, cuando el cliente la ve en el portal, entonces todos los campos obligatorios son visibles sin necesidad de clics adicionales.",
+        "Dado que el asesor carga tres fotos de resolucion aceptable (>= 800x600 px), cuando las sube, entonces el sistema las acepta y permite publicar."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [
+        "¿Que validacion determina 'fotos de calidad' mas alla de la resolucion minima (>=800x600 px)? ¿Hay revision manual o solo automatica?"
+      ],
+      "priority": 3,
+      "origin": ["user-stories:US-08", "requisitos:R-08", "requisitos:R-15", "personas:informacion-incompleta-y-engañosa"]
+    },
+    {
+      "id": "US-06",
+      "epic": "E-02",
+      "as_a": "cliente comprador",
+      "want": "elegir fecha y hora de visita directamente desde el portal",
+      "so_that": "no depender de llamadas ni esperar confirmaciones que tardan hasta un dia",
+      "acceptance_criteria": [
+        "Dado que el cliente selecciona una propiedad disponible, cuando accede a 'Agendar visita', entonces ve los horarios disponibles del asesor asignado y puede reservar uno sin hacer ninguna llamada.",
+        "Dado que el cliente selecciona un horario y confirma, cuando el sistema lo registra, entonces recibe un comprobante en pantalla y el asesor recibe la notificacion (US-04).",
+        "Dado que todos los horarios de un dia estan ocupados, cuando el cliente lo ve, entonces el sistema le ofrece el siguiente dia disponible."
+      ],
+      "estimate": 8,
+      "dependencies": ["US-05"],
+      "open_questions": [
+        "¿El cliente elige el asesor asignado o el sistema lo asigna automaticamente cuando hay varios asesores para la misma propiedad?"
+      ],
+      "priority": 1,
+      "origin": ["user-stories:US-06", "requisitos:R-07", "personas:agendamiento-visita-por-telefono"]
+    },
+    {
+      "id": "US-04",
+      "epic": "E-03",
+      "as_a": "asesor inmobiliario",
+      "want": "recibir una notificacion en mi celular cuando se confirme o cancele una visita en mi agenda",
+      "so_that": "enterarme a tiempo y llegar preparado a cada cita",
+      "acceptance_criteria": [
+        "Dado que un cliente confirma una visita desde el portal, cuando el sistema la registra, entonces el asesor asignado recibe una notificacion push en menos de 60 segundos.",
+        "Dado que el cliente cancela una visita, cuando el sistema actualiza el estado, entonces el asesor recibe notificacion con el detalle de la propiedad y el horario cancelado.",
+        "Dado que el asesor no tiene habilitadas las notificaciones push, cuando se confirma una visita, entonces el evento queda registrado igualmente y visible en su calendario."
+      ],
+      "estimate": 5,
+      "dependencies": ["US-06"],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["user-stories:US-04", "requisitos:R-04", "personas:notificaciones-visitas-tardias"]
+    },
+    {
+      "id": "US-03",
+      "epic": "E-04",
+      "as_a": "asesor inmobiliario",
+      "want": "ver en una sola vista el historial de visitas, ofertas y consultas de cada cliente asignado",
+      "so_that": "entrar a cada reunion ya informado y no hacerle repetir lo mismo dos veces",
+      "acceptance_criteria": [
+        "Dado que el asesor accede al perfil de un cliente asignado, cuando lo abre, entonces ve el historial cronologico de visitas, ofertas enviadas y consultas previas.",
+        "Dado que hay una nueva actividad del cliente, cuando ocurre, entonces aparece reflejada en el historial sin necesidad de recargar."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [
+        "¿El historial debe actualizarse en tiempo real (push) o basta con actualizacion al recargar la vista?"
+      ],
+      "priority": 1,
+      "origin": ["user-stories:US-03", "requisitos:R-03", "personas:historial-cliente-disperso"]
+    },
+    {
+      "id": "US-01",
+      "epic": "E-05",
+      "as_a": "asesor inmobiliario",
+      "want": "tener una propiedad pre-configurada lista para publicarse en un clic al cargar la primera foto",
+      "so_that": "no perder oportunidades cuando el dueño demora en enviar las imagenes",
+      "acceptance_criteria": [
+        "Dado que la propiedad tiene todos los datos obligatorios excepto fotos, cuando el asesor carga las imagenes minimas, entonces puede publicarla con un solo clic sin reingresar datos.",
+        "Dado que la propiedad esta en estado 'pendiente de foto', cuando el asesor o el dueño carga las imagenes, entonces el sistema notifica al asesor que ya puede publicar."
+      ],
+      "estimate": 3,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["user-stories:US-01", "requisitos:R-01", "personas:fotos-pendientes-bloquean-publicacion"]
+    },
+    {
+      "id": "US-02",
+      "epic": "E-06",
+      "as_a": "asesor inmobiliario",
+      "want": "que el sistema rechace automaticamente las ofertas que no superen el precio minimo pactado",
+      "so_that": "evitar conversaciones incomodas cuando la oferta no es viable",
+      "acceptance_criteria": [
+        "Dado que el cliente envia una oferta menor al precio minimo de la propiedad, cuando el sistema la recibe, entonces la rechaza automaticamente e informa al cliente el motivo sin intervencion del asesor.",
+        "Dado que la oferta supera el minimo, cuando el sistema la recibe, entonces la notifica al asesor para que decida."
+      ],
+      "estimate": 3,
+      "dependencies": [],
+      "open_questions": [
+        "¿El precio minimo pactado es un campo obligatorio de la ficha de propiedad o se gestiona en un modulo aparte?"
+      ],
+      "priority": 1,
+      "origin": ["user-stories:US-02", "requisitos:R-02", "personas:ofertas-bajo-minimo-sin-filtro"]
+    },
+    {
+      "id": "US-09",
+      "epic": "E-07",
+      "as_a": "cliente comprador",
+      "want": "configurar alertas para recibir notificaciones cuando bajen precios o ingresen propiedades que se ajusten a mis criterios",
+      "so_that": "actuar rapido sin revisar el portal constantemente",
+      "acceptance_criteria": [
+        "Dado que el cliente define criterios de busqueda (zona, tipo, rango de precio), cuando ingresa una propiedad que los cumple, entonces el cliente recibe una notificacion.",
+        "Dado que el precio de una propiedad marcada como favorita baja, cuando ocurre el cambio, entonces el cliente recibe alerta con el precio anterior y el nuevo."
+      ],
+      "estimate": 8,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["user-stories:US-09", "requisitos:R-09", "mvp-canvas:fuera-de-alcance:alertas-precio"]
+    },
+    {
+      "id": "US-10",
+      "epic": "E-08",
+      "as_a": "gerente / propietaria",
+      "want": "ver un resumen del rendimiento de cada asesor (visitas realizadas, clientes activos, propiedades sin movimiento)",
+      "so_that": "saber quien necesita apoyo sin tener que preguntarles uno por uno",
+      "acceptance_criteria": [
+        "Dado que la gerente accede al panel de gerencia, cuando lo abre, entonces ve una tabla con cada asesor y sus metricas de la semana y el mes.",
+        "Dado que un asesor tiene propiedades sin movimiento en mas de cuatro semanas, cuando la gerente ve su resumen, entonces esas propiedades estan resaltadas."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["user-stories:US-10", "requisitos:R-10", "personas:visibilidad-rendimiento-asesores"]
+    },
+    {
+      "id": "US-11",
+      "epic": "E-08",
+      "as_a": "gerente / propietaria",
+      "want": "ver cuantos clientes activos tiene cada asesor antes de asignar uno nuevo",
+      "so_that": "distribuir la carga de manera equitativa y que ningun cliente quede sin atencion",
+      "acceptance_criteria": [
+        "Dado que la gerente va a asignar un cliente nuevo, cuando abre el formulario de asignacion, entonces ve el numero de clientes activos de cada asesor en ese momento.",
+        "Dado que un asesor tiene mas del doble de clientes que el de menor carga, cuando se le va a asignar otro, entonces el sistema muestra una advertencia de sobrecarga."
+      ],
+      "estimate": 3,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 2,
+      "origin": ["user-stories:US-11", "requisitos:R-11", "personas:asignacion-clientes-sin-vista-de-carga"]
+    },
+    {
+      "id": "US-12",
+      "epic": "E-08",
+      "as_a": "gerente / propietaria",
+      "want": "recibir una alerta automatica cuando una propiedad activa lleve mas de cuatro semanas sin visitas ni ofertas",
+      "so_that": "actuar antes de que el dueño se moleste por la inactividad",
+      "acceptance_criteria": [
+        "Dado que una propiedad activa no registra visitas ni ofertas en cuatro semanas, cuando se cumple ese plazo, entonces la gerente recibe una alerta con el nombre de la propiedad y el asesor asignado.",
+        "Dado que el umbral es configurable, cuando la gerente lo modifica desde la configuracion, entonces las alertas futuras respetan el nuevo valor."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [
+        "¿El umbral configurable de semanas sin actividad es global para toda la inmobiliaria o configurable por tipo de propiedad/asesor?"
+      ],
+      "priority": 3,
+      "origin": ["user-stories:US-12", "requisitos:R-12", "personas:propiedades-inactivas-sin-alerta"]
+    },
+    {
+      "id": "US-13",
+      "epic": "E-08",
+      "as_a": "gerente / propietaria",
+      "want": "acceder al historial consolidado de ofertas rechazadas por propiedad",
+      "so_that": "detectar cuando el precio publicado esta lejos del mercado y decidir si ajustarlo",
+      "acceptance_criteria": [
+        "Dado que la gerente accede al modulo de analisis de precios, cuando lo abre, entonces ve el listado de propiedades con el numero de ofertas rechazadas y los montos ofrecidos.",
+        "Dado que una propiedad acumula tres o mas rechazos bajo el minimo, cuando la gerente la ve, entonces puede comparar el precio minimo vs. el promedio ofertado."
+      ],
+      "estimate": 5,
+      "dependencies": ["US-02"],
+      "open_questions": [
+        "¿El umbral de tres o mas rechazos es una regla de negocio fija o solo un valor ilustrativo del criterio de aceptacion?"
+      ],
+      "priority": 4,
+      "origin": ["user-stories:US-13", "requisitos:R-13", "personas:ofertas-rechazadas-sin-consolidar"]
+    }
+  ]
+}
