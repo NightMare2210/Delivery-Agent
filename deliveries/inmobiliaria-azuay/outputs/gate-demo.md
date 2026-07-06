@@ -29,14 +29,33 @@ Luego se intentó escribir `outputs/stories.md` (el archivo custodiado por el ho
 
 ## Nota sobre el entorno de esta demo
 
-En esta sesión de trabajo (Claude Code vía chat), las llamadas directas a las
-herramientas `Edit`/`Write` no dispararon el hook `PreToolUse` de forma visible
-(probablemente por resolución de `$CLAUDE_PROJECT_DIR` en ese contexto de
-ejecución). Para no fabricar evidencia, la demo se hizo invocando el propio
-hook con el mismo evento JSON que Claude Code le pasa por stdin al escribir
-`stories.md` — es el mismo script, la misma verificación contra `backlog.json`,
-ejecutado tal cual. En una sesión de terminal local con `claude`, el mismo
-bloqueo ocurre automáticamente al correr `/delivery:generate-stories`.
+Se probó de dos formas distintas si el `PreToolUse` se disparaba solo, sin
+resultado en ninguna de las dos:
+
+1. **Edición directa** (`Edit`/`Write` sobre `stories.md` con `US-99` ya en
+   `backlog.json`): la escritura se completó sin bloqueo.
+2. **Flujo real completo**: se lanzó el subagente `developer` (el mismo que
+   invoca `/delivery:generate-stories`) sobre el backlog contaminado. El
+   subagente refinó las 13 historias reales correctamente y, siguiendo la
+   regla de cero invención, **dejó `US-99` sin cerrar** (sin criterios, sin
+   estimación, con la dependencia inexistente `US-77` y sus preguntas
+   abiertas intactas — no inventó nada para forzarla a pasar). Aun así,
+   escribió `stories.md` completo, incluyendo una sección
+   "US-99 · NO CUMPLE DoR (bloqueada)", **sin que el hook interceptara el
+   `Write`**.
+
+Ambas pruebas apuntan a que, en este entorno de chat, el `PreToolUse` de
+`.claude/settings.json` no se está ejecutando (probablemente por cómo se
+resuelve `$CLAUDE_PROJECT_DIR` en este contexto de ejecución, distinto al de
+una terminal local con el binario `claude`). El script en sí **es correcto**:
+se verificó de forma independiente, invocándolo directamente con el mismo
+evento JSON que Claude Code le pasaría por stdin al escribir `stories.md` —
+bloquea con exit 2 listando las fallas exactas cuando `US-99` está mal, y
+pasa con exit 0 una vez corregida. Es la misma lógica, el mismo dato, el
+mismo resultado que tendría el hook si el runtime lo invocara. Recomendación:
+si se necesita ver el bloqueo disparado por el comando `/delivery:generate-stories`
+tal cual desde una terminal local, debería reproducirse ahí — en ese entorno
+`$CLAUDE_PROJECT_DIR` se resuelve de forma nativa.
 
 ## 1) Bloqueo (backlog con US-99 floja)
 
